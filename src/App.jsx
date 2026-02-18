@@ -63,71 +63,71 @@ function App() {
       <table className="users-table">
         <thead>
           <tr>
-            <th>
-              <button onClick={() => handleClick('lastName')}>
-                <div className="header-content">
+            <th className="table-heading">
+              <button onClick={() => handleClick('lastName')} className="table-heading__button">
+                <div className="table-heading__container">
                   <span>Фамилия</span>
                   <SortIcon sortState={sortConfig.key === 'lastName' ? sortConfig.direction : null}/>
                 </div>
               </button>
             </th>
-            <th>
-              <button onClick={() => handleClick('firstName')}>
-                <div className="header-content">
+            <th className="table-heading">
+              <button onClick={() => handleClick('firstName')} className="table-heading__button">
+                <div className="table-heading__container">
                   <span>Имя</span>
                   <SortIcon sortState={sortConfig.key === 'firstName' ? sortConfig.direction : null}/>
                 </div>
               </button>
             </th>
-            <th>
-              <button onClick={() => handleClick('maidenName')}>
-                <div className="header-content">
+            <th className="table-heading">
+              <button onClick={() => handleClick('maidenName')} className="table-heading__button">
+                <div className="table-heading__container">
                   <span>Отчество</span>
                   <SortIcon sortState={sortConfig.key === 'maidenName' ? sortConfig.direction : null}/>
                 </div>
               </button>
             </th>
-            <th>
-              <button onClick={() => handleClick('age')}>
-                <div className="header-content">
+            <th className="table-heading">
+              <button onClick={() => handleClick('age')} className="table-heading__button">
+                <div className="table-heading__container">
                   <span>Возраст</span>
                   <SortIcon sortState={sortConfig.key === 'age' ? sortConfig.direction : null}/>
                 </div>
               </button>
             </th>
-            <th>
-              <button onClick={() => handleClick('gender')}>
-                <div className="header-content">
+            <th className="table-heading">
+              <button onClick={() => handleClick('gender')} className="table-heading__button">
+                <div className="table-heading__container">
                   <span>Пол</span>
                   <SortIcon sortState={sortConfig.key === 'gender' ? sortConfig.direction : null}/>
                 </div>
               </button>
             </th>
-            <th>
-              <button onClick={() => handleClick('phone')}>
-                <div className="header-content">
+            <th className="table-heading">
+              <button onClick={() => handleClick('phone')} className="table-heading__button">
+                <div className="table-heading__container">
                   <span>Номер телефона</span>
                   <SortIcon sortState={sortConfig.key === 'phone' ? sortConfig.direction : null}/>
                 </div>
               </button>
             </th>
-            <th>email</th>
-            <th>Страна</th>
-            <th>Город</th>
+            <th className="table-heading">email</th>
+            <th className="table-heading">Страна</th>
+            <th className="table-heading">Город</th>
           </tr>
         </thead>
         <tbody>
           {data.map(user => (
-            <tr key={user.id}>
-              <td>{user.lastName}</td>
-              <td>{user.firstName}</td>
-              <td>{user.maidenName}</td>
-              <td>{user.age}</td>
-              <td>{user.gender}</td>
-              <td>{user.phone}</td>
-              <td>{user.email}</td>
-              <td>{user.address.country}</td>
-              <td>{user.address.city}</td>
+            <tr key={user.id} className="table-record">
+              <td className="table-cell">{user.lastName}</td>
+              <td className="table-cell">{user.firstName}</td>
+              <td className="table-cell">{user.maidenName}</td>
+              <td className="table-cell">{user.age}</td>
+              <td className="table-cell">{user.gender}</td>
+              <td className="table-cell">{user.phone}</td>
+              <td className="table-cell">{user.email}</td>
+              <td className="table-cell">{user.address.country}</td>
+              <td className="table-cell">{user.address.city}</td>
             </tr>
           ))}
           

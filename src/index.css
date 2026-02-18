@@ -1,1 +1,14 @@
+* {
+  font-family: sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+}
 
+button {
+  cursor: pointer;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  border-radius: none;
+  background: transparent;
+}
