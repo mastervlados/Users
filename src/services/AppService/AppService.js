@@ -14,8 +14,16 @@ export default class AppService {
         return result
     }
 
-    async getUserData(currentPageIndex, currentPageLimit) {
-        const response = await fetch(`${this.base}users?limit=${currentPageLimit}&skip=${currentPageIndex * currentPageLimit}&select=id,firstName,lastName,maidenName,age,gender,phone,email,address`, {
+    async getUserData(currentPageIndex, currentPageLimit, sortConfig) {
+        let input = `${this.base}users`
+        input += `?limit=${currentPageLimit}`
+        input += `&skip=${currentPageIndex * currentPageLimit}`
+        input += `&select=id,firstName,lastName,maidenName,age,gender,phone,email,address`
+        if (sortConfig.key !== null && sortConfig.direction !== null) {
+            input += `&sortBy=${sortConfig.key}&order=${sortConfig.direction}`
+        }
+        
+        const response = await fetch(input, {
             method: 'GET',
             headers: {
                 Accept: 'application/json',

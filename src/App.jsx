@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import { useAppService } from './services/AppService'
 import Pagination from './components/Pagination'
+import SortIcon from './components/SortIcon'
 
 function App() {
   const service = useAppService()
@@ -10,6 +11,10 @@ function App() {
   const [data, setData] = useState([])
   const [count, setCount] = useState(0)
   const [isLoading, setLoading] = useState(true)
+  const [sortConfig, setSortConfig] = useState({
+    key: null,
+    direction: null,
+  })
 
   useEffect(() => {
     (async () => {
@@ -24,14 +29,33 @@ function App() {
   useEffect(() => {
     (async () => {
       if (!isLoading) {
-        const data = await service.getUserData(currentPage, currentLimitPerPage);
+        const data = await service.getUserData(currentPage, currentLimitPerPage, sortConfig);
         setData(data.users)
       }
     })();
-  }, [currentPage])
+  }, [currentPage, sortConfig])
 
   if (isLoading) {
     return
+  }
+
+  const handleClick = (key) => {
+    setSortConfig(prevConfig => {
+      if (prevConfig.key !== key) {
+        return { key, direction: 'asc' };
+      }
+      
+      switch (prevConfig.direction) {
+        case null:
+          return { key, direction: 'asc' };
+        case 'asc':
+          return { key, direction: 'desc' };
+        case 'desc':
+          return { key: null, direction: null };
+        default:
+          return { key: null, direction: null };
+      }
+    });
   }
 
   return (
@@ -39,12 +63,54 @@ function App() {
       <table className="users-table">
         <thead>
           <tr>
-            <th>Фамилия</th>
-            <th>Имя</th>
-            <th>Отчество</th>
-            <th>Возраст</th>
-            <th>Пол</th>
-            <th>Номер телефона</th>
+            <th>
+              <button onClick={() => handleClick('lastName')}>
+                <div className="header-content">
+                  <span>Фамилия</span>
+                  <SortIcon sortState={sortConfig.key === 'lastName' ? sortConfig.direction : null}/>
+                </div>
+              </button>
+            </th>
+            <th>
+              <button onClick={() => handleClick('firstName')}>
+                <div className="header-content">
+                  <span>Имя</span>
+                  <SortIcon sortState={sortConfig.key === 'firstName' ? sortConfig.direction : null}/>
+                </div>
+              </button>
+            </th>
+            <th>
+              <button onClick={() => handleClick('maidenName')}>
+                <div className="header-content">
+                  <span>Отчество</span>
+                  <SortIcon sortState={sortConfig.key === 'maidenName' ? sortConfig.direction : null}/>
+                </div>
+              </button>
+            </th>
+            <th>
+              <button onClick={() => handleClick('age')}>
+                <div className="header-content">
+                  <span>Возраст</span>
+                  <SortIcon sortState={sortConfig.key === 'age' ? sortConfig.direction : null}/>
+                </div>
+              </button>
+            </th>
+            <th>
+              <button onClick={() => handleClick('gender')}>
+                <div className="header-content">
+                  <span>Пол</span>
+                  <SortIcon sortState={sortConfig.key === 'gender' ? sortConfig.direction : null}/>
+                </div>
+              </button>
+            </th>
+            <th>
+              <button onClick={() => handleClick('phone')}>
+                <div className="header-content">
+                  <span>Номер телефона</span>
+                  <SortIcon sortState={sortConfig.key === 'phone' ? sortConfig.direction : null}/>
+                </div>
+              </button>
+            </th>
             <th>email</th>
             <th>Страна</th>
             <th>Город</th>
