@@ -3,6 +3,7 @@ import './App.css'
 import { useAppService } from './services/AppService'
 import Pagination from './components/Pagination'
 import SortIcon from './components/SortIcon'
+import Spinner from './components/Spinner'
 
 function App() {
   const service = useAppService()
@@ -36,7 +37,11 @@ function App() {
   }, [currentPage, sortConfig])
 
   if (isLoading) {
-    return
+    return (
+      <div className="spinner-area">
+        <Spinner/>
+      </div>
+    )
   }
 
   const handleClick = (key) => {
