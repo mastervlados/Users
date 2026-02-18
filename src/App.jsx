@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import { useAppService } from './services/AppService'
+import Pagination from './components/Pagination'
 
 function App() {
   const service = useAppService()
@@ -19,6 +20,15 @@ function App() {
       setLoading(false)
     })();
   }, [])
+
+  useEffect(() => {
+    (async () => {
+      if (!isLoading) {
+        const data = await service.getUserData(currentPage, currentLimitPerPage);
+        setData(data.users)
+      }
+    })();
+  }, [currentPage])
 
   if (isLoading) {
     return
@@ -57,6 +67,11 @@ function App() {
           
         </tbody>
       </table>
+      <Pagination 
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        currentLimitPerPage={currentLimitPerPage}
+        totalCount={count}/>
     </div>
   )
 }
