@@ -1,0 +1,38 @@
+.users-table {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    border-collapse: collapse;
+  }
+  
+  .table-heading {
+    border: 1px solid lightgray;
+    font-weight: bold;
+    color: #696969;
+  }
+  
+  .table-heading__button {
+    margin: 10px 5px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    background-color: royalblue;
+    color: lightcyan;
+  }
+  
+  .table-heading__container {
+    display: flex;
+    gap: 5px;
+  }
+  
+  .table-cell {
+    border: 1px solid lightgray;
+  }
+  
+  .table-record {
+    cursor: pointer;
+  }
+  
+  .table-record:hover {
+    background-color: royalblue;
+    color: lightcyan;
+  }
