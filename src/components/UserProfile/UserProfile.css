@@ -1,0 +1,18 @@
+.user-profile__spinner-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-profile__avatar {
+    width: 128px;
+    height: 128px;
+}
+
+.user-profile__header {
+    display: flex;
+}
+
+.user-profile__name {
+    font-weight: bold;
+}

@@ -4,6 +4,8 @@ import { useAppService } from './services/AppService'
 import Pagination from './components/Pagination'
 import SortIcon from './components/SortIcon'
 import Spinner from './components/Spinner'
+import Modal from './components/Modal'
+import UserProfile from './components/UserProfile'
 
 function App() {
   const service = useAppService()
@@ -16,6 +18,8 @@ function App() {
     key: null,
     direction: null,
   })
+  const [isModalOpen, setModalOpen] = useState(false)
+  const [pickedUserID, setUserID] = useState(0)
 
   useEffect(() => {
     (async () => {
@@ -123,7 +127,10 @@ function App() {
         </thead>
         <tbody>
           {data.map(user => (
-            <tr key={user.id} className="table-record">
+            <tr key={user.id} className="table-record" onClick={() => {
+              setModalOpen(true)
+              setUserID(user.id)
+            }}>
               <td className="table-cell">{user.lastName}</td>
               <td className="table-cell">{user.firstName}</td>
               <td className="table-cell">{user.maidenName}</td>
@@ -143,6 +150,9 @@ function App() {
         setCurrentPage={setCurrentPage}
         currentLimitPerPage={currentLimitPerPage}
         totalCount={count}/>
+      <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
+          <UserProfile userID={pickedUserID}/>
+      </Modal>
     </div>
   )
 }

@@ -34,5 +34,20 @@ export default class AppService {
 
         return result
     }
+
+    async getSingleUserData(userID) {
+        let input = `${this.base}users/${userID}`
+        input += `?select=id,firstName,lastName,maidenName,age,address,height,weight,phone,email,image`
+        const response = await fetch(input, {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+            }
+        })
+
+        const result = (await response.json())
+
+        return result
+    }
 }
 

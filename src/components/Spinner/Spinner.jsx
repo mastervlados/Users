@@ -1,5 +1,5 @@
 import './Spinner.css'
 
 export const Spinner = () => {
-    return <div class="custom-loader"></div>
+    return <div className="custom-loader"></div>
 }
