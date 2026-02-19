@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import './UserProfile.css'
-import Spinner from '../Spinner'
+import Spinner from '../ui/Spinner'
 import { useAppService } from '../../services/AppService'
 
 export const UserProfile = ({ userID }) => {
