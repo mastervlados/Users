@@ -11,7 +11,7 @@ function App() {
   const service = useAppService()
   const [currentPage, setCurrentPage] = useState(0)
   const [currentLimitPerPage, setCurrentLimitPerPage] = useState(0)
-  const [data, setData] = useState([])
+  const [data, setData] = useState()
   const [count, setCount] = useState(0)
   const [isLoading, setLoading] = useState(true)
   const [sortConfig, setSortConfig] = useState({
