@@ -1,5 +1,8 @@
 import './Table.css'
 import SortIcon from '../ui/SortIcon';
+import { Resizable } from 'react-resizable';
+import 'react-resizable/css/styles.css';
+import { useState } from 'react';
 
 export const Table = ({
     tableData,
@@ -8,6 +11,16 @@ export const Table = ({
     setModalOpen,
     setUserID,
 }) => {
+    const [colWidths, setColWidths] = useState([150, 150, 150, 100, 100, 200, 300, 150, 150])
+
+    const onResize = (index, { size }) => {
+        setColWidths(prev => {
+            const newWidths = [...prev]
+            newWidths[index] = Math.max(50, size.width)
+            return newWidths
+        });
+    };
+
     const fields = [
         { key: 'lastName', text: 'Фамилия', sortEnabled: true },
         { key: 'firstName', text: 'Имя', sortEnabled: true },
@@ -23,18 +36,18 @@ export const Table = ({
     const handleSort = (key) => {
         setSortConfig(prevConfig => {
             if (prevConfig.key !== key) {
-                return { key, direction: 'asc' };
+                return { key, direction: 'asc' }
             }
             
             switch (prevConfig.direction) {
             case null:
-                return { key, direction: 'asc' };
+                return { key, direction: 'asc' }
             case 'asc':
-                return { key, direction: 'desc' };
+                return { key, direction: 'desc' }
             case 'desc':
-                return { key: null, direction: null };
+                return { key: null, direction: null }
             default:
-                return { key: null, direction: null };
+                return { key: null, direction: null }
             }
         });
     }
@@ -43,20 +56,38 @@ export const Table = ({
         <table className="users-table">
             <thead>
                 <tr>
-                    {fields.map(field => {
+                    {fields.map((field, index) => {
                         if (field.sortEnabled) {
                             return (
-                                <th key={field.key} className="table-heading">
-                                    <button onClick={() => handleSort(field.key)} className="table-heading__button">
-                                        <div className="table-heading__container">
-                                            <span>{field.text}</span>
-                                            <SortIcon sortState={sortConfig.key === field.key ? sortConfig.direction : null}/>
-                                        </div>
-                                    </button>
-                                </th>
+                                <Resizable
+                                    width={colWidths[index]}
+                                    height={0}
+                                    onResize={(e, data) => onResize(index, data)}
+                                    draggableOpts={{ enableUserSelectHack: false }}
+                                    minConstraints={[50, 50]}>
+                                    <th key={field.key} className="table-heading" style={{ width: colWidths[index] }}>
+                                        <button onClick={() => handleSort(field.key)} className="table-heading__button">
+                                            <div className="table-heading__container">
+                                                <span>{field.text}</span>
+                                                <SortIcon sortState={sortConfig.key === field.key ? sortConfig.direction : null}/>
+                                            </div>
+                                        </button>
+                                    </th>
+                                </Resizable>
                             )
                         }
-                        return <th key={field.key} className="table-heading">{field.text}</th>
+                        return (
+                            <Resizable
+                                width={colWidths[index]}
+                                height={0}
+                                onResize={(e, data) => onResize(index, data)}
+                                draggableOpts={{ enableUserSelectHack: false }}
+                                minConstraints={[50, 50]}>
+                                <th key={field.key} className="table-heading" style={{ width: colWidths[index] }}>
+                                    {field.text}
+                                </th>
+                            </Resizable>
+                        )
                     })}
                 </tr>
             </thead>

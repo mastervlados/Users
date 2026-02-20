@@ -4,7 +4,7 @@ export default class AppService {
     async _fetchWithTimeout(url, options = {}) {
         try {
             const controller = new AbortController()
-            const timeoutID = setTimeout(() => controller.abort(), 10000)
+            const timeoutID = setTimeout(() => controller.abort(), 30000)
     
             const response = await fetch(url, {
                 ...options,
